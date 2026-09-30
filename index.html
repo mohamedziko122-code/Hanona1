@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HANONA ❤️</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:Tahoma,Arial,sans-serif;
+    overflow:hidden;
+}
+
+/* الخلفية */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,80,130,.15),transparent 35%),
+        radial-gradient(circle at 80% 80%,rgba(140,70,255,.12),transparent 35%);
+    pointer-events:none;
+}
+
+/* الشاشات */
+
+.screen{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:20px;
+    text-align:center;
+    opacity:1;
+    visibility:visible;
+    transition:1s;
+}
+
+.screen.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+/* البداية */
+
+.intro h1{
+    font-size:55px;
+    letter-spacing:5px;
+    margin-bottom:15px;
+    text-shadow:
+        0 0 10px rgba(255,255,255,.7),
+        0 0 30px rgba(255,70,130,.7);
+}
+
+.intro p{
+    font-size:18px;
+    opacity:.8;
+    margin-bottom:30px;
+}
+
+button{
+    border:0;
+    padding:14px 30px;
+    border-radius:40px;
+    background:linear-gradient(135deg,#ff477e,#9d4edd);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(255,60,130,.25);
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* الباسورد */
+
+.password h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.password p{
+    opacity:.75;
+    margin-bottom:20px;
+}
+
+input{
+    width:280px;
+    max-width:90%;
+    padding:15px 20px;
+    border-radius:30px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.08);
+    color:white;
+    outline:none;
+    text-align:center;
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+input::placeholder{
+    color:#aaa;
+}
+
+/* المعرض */
+
+.gallery{
+    justify-content:flex-start;
+    padding-top:30px;
+    padding-bottom:20px;
+}
+
+.top-title{
+    font-size:25px;
+    margin-bottom:15px;
+    text-shadow:0 0 15px rgba(255,100,150,.6);
+}
+
+/* الصورة */
+
+.photo-box{
+    width:min(92vw,420px);
+    height:min(63vh,570px);
+    position:relative;
+    border-radius:25px;
+    overflow:hidden;
+    background:#111;
+    box-shadow:
+        0 0 30px rgba(255,70,130,.2),
+        0 20px 60px rgba(0,0,0,.7);
+}
+
+.photo-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:opacity .8s,transform 1s;
+}
+
+.photo-box::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.8),
+        rgba(0,0,0,.05) 55%,
+        rgba(0,0,0,.15)
+    );
+    pointer-events:none;
+}
+
+/* الكلام */
+
+.caption{
+    position:absolute;
+    bottom:0;
+    right:0;
+    left:0;
+    z-index:5;
+
+    padding:25px 20px 22px;
+
+    font-size:17px;
+    line-height:1.8;
+
+    text-shadow:0 2px 5px #000;
+
+    max-height:48%;
+    overflow-y:auto;
+
+    scrollbar-width:none;
+}
+
+.caption::-webkit-scrollbar{
+    display:none;
+}
+
+.caption.show{
+    animation:textIn 1s ease;
+}
+
+@keyframes textIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* رقم الصورة */
+
+.counter{
+    margin-top:12px;
+    font-size:14px;
+    opacity:.6;
+}
+
+/* الشاشة الأخيرة */
+
+.final{
+    padding:30px 22px;
+}
+
+.final-box{
+    width:min(700px,95vw);
+    max-height:85vh;
+    overflow-y:auto;
+
+    padding:30px 24px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.5);
+}
+
+.final-box::-webkit-scrollbar{
+    width:4px;
+}
+
+.final-box::-webkit-scrollbar-thumb{
+    background:#ff477e;
+    border-radius:10px;
+}
+
+.final-box h2{
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.final-box p{
+    font-size:18px;
+    line-height:2;
+    color:#eee;
+    margin-bottom:20px;
+}
+
+/* قلوب */
+
+.heart{
+    position:fixed;
+    bottom:-30px;
+    font-size:18px;
+    animation:floatUp linear forwards;
+    pointer-events:none;
+    z-index:20;
+}
+
+@keyframes floatUp{
+
+    from{
+        transform:translateY(0) scale(.7);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.8;
+    }
+
+    100%{
+        transform:translateY(-110vh) scale(1.4);
+        opacity:0;
+    }
+
+}
+
+/* موبايل */
+
+@media(max-width:500px){
+
+    .intro h1{
+        font-size:42px;
+    }
+
+    .intro p{
+        font-size:16px;
+    }
+
+    .photo-box{
+        height:62vh;
+    }
+
+    .caption{
+        font-size:16px;
+        line-height:1.75;
+        max-height:50%;
+        padding:22px 17px;
+    }
+
+    .final-box p{
+        font-size:16px;
+        line-height:1.9;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- البداية -->
+
+<section id="intro" class="screen intro">
+
+    <h1>HANONA ❤️</h1>
+
+    <p>
+        في حاجة صغيرة كدا عاملهالك...
+        افتحيها بس 👀
+    </p>
+
+    <button onclick="openPassword()">
+        افتحيها 👀
+    </button>
+
+</section>
+
+
+<!-- الباسورد -->
+
+<section id="password" class="screen password hide">
+
+    <h2>استني كدا 😂❤️</h2>
+
+    <p>
+        عشان ندخل لازم كلمة السر الأول
+    </p>
+
+    <input
+        id="passwordInput"
+        type="password"
+        placeholder="Password"
+        autocomplete="off"
+    >
+
+    <button onclick="checkPassword()">
+        افتحي ❤️
+    </button>
+
+    <p id="error"
+       style="color:#ff668f;margin-top:15px;display:none;">
+        لأ لأ 😂 جربي تاني
+    </p>
+
+</section>
+
+
+<!-- المعرض -->
+
+<section id="gallery" class="screen gallery hide">
+
+    <div class="top-title">
+        كام ذكرى كدا ❤️
+    </div>
+
+    <div class="photo-box">
+
+        <img id="photo" src="1.jpg">
+
+        <div id="caption" class="caption"></div>
+
+    </div>
+
+    <div id="counter" class="counter">
+        1 / 6
+    </div>
+
+</section>
+
+
+<!-- النهاية -->
+
+<section id="final" class="screen final hide">
+
+    <div class="final-box">
+
+        <h2>
+            وبس كدا يا هنونة ❤️
+        </h2>
+
+        <p>
+            بصي يا هنونة 😂❤️
+            أنا عارف إن بينا حكاية عدت بحاجات كتير،
+            فيها حاجات حلوة أوي وحاجات يمكن مكنتش سهلة،
+            بس في الآخر كانت فترة مهمة في حياتي ومش هقدر أقول غير كدا.
+        </p>
+
+        <p>
+            يمكن الوقت يعدي والناس تتغير،
+            وكل واحد فينا يكمل حياته في طريق مختلف،
+            بس ده مش معناه إن الذكريات الحلوة اللي كانت بينا
+            ملهاش قيمة.
+        </p>
+
+        <p>
+            بالعكس...
+            في حاجات بتفضل حلوة لمجرد إنها حصلت،
+            وفي ناس مهما حصل بينهم وبينك
+            تفضل ليهم حتة معينة في الذاكرة.
+        </p>
+
+        <p>
+            وعلشان كدا حبيت أعملك الحاجة الصغيرة دي
+            في يوم زي ده،
+            مش علشان أفتح كلام قديم
+            ولا علشان أضغط عليكي في حاجة،
+            بس علشان أقولك إن يوم ميلادك
+            لسه يستاهل يتقال فيه كلام حلو ❤️
+        </p>
+
+        <p>
+            كل سنة وانتي طيبة يا هنونة 😂❤️
+            وعقبال سنين كتير جاية عليكي،
+            تكون أهدى وأحلى،
+            وتلاقي فيها كل الخير اللي نفسك فيه.
+        </p>
+
+        <p>
+            ربنا يفرح قلبك،
+            ويحققلك اللي نفسك فيه،
+            ويكتبلك الخير في كل خطوة جاية،
+            ويبعد عنك أي حاجة تضايقك.
+        </p>
+
+        <p>
+            وخليكي دايمًا فاكرة إن في وقت من الأوقات
+            كان في حد بيتمنالك الخير من قلبه،
+            ولسه بيتمنالك الخير برضه ❤️
+        </p>
+
+        <p style="font-size:22px;">
+            كل سنة وانتي طيبة يا هنونة 🎂❤️
+        </p>
+
+        <button onclick="location.reload()">
+            نعيدها تاني 😂❤️
+        </button>
+
+    </div>
+
+</section>
+
+
+<audio id="music" preload="auto">
+
+    <source src="song.mp3" type="audio/mpeg">
+
+</audio>
+
+
+<script>
+
+/* =========================
+   البيانات
+========================= */
+
+const photos = [
+
+    {
+        image:"1.jpg",
+        text:`بصي يا هنونة 😂❤️
+
+مش عارف ليه أول ما فكرت أعملك حاجة في عيد ميلادك لقيت نفسي بفتكر حاجات كتير من زمان.
+
+يمكن حاجات بسيطة جدًا وممكن بالنسبالك تعدي عادي، بس أنا فاكرها كويس.
+
+وعشان كدا الصورة دي أول حاجة حبيت تبدأ بيها الحكاية ❤️`
+    },
+
+    {
+        image:"2.jpg",
+        text:`فاكرة أيامنا؟ 😂❤️
+
+اللي كان فيها كلام كتير وضحك كتير وحاجات صغيرة يمكن وقتها مكنّاش واخدين بالنا إنها هتفضل في الذاكرة بالشكل ده.
+
+الدنيا بتتغير والناس بتتغير، بس بعض اللحظات بتفضل زي ما هي مهما الوقت عدى.
+
+ودي واحدة من الحاجات اللي لما بفتكرها بابتسم غصب عني ❤️`
+    },
+
+    {
+        image:"3.jpg",
+        text:`الوقت بيغيّر حاجات كتير أوي...
+
+بيغير شكل الأيام، وبيغير ظروف الناس، وبيخلي كل واحد يكمل طريقه بطريقته.
+
+بس مش معنى إن حاجة خلصت إنها كانت وحشة.
+
+في حاجات انتهت بس فضلت حلوة في الذاكرة، وده يمكن أحسن وصف لحاجات كتير حصلت بينا ❤️`
+    },
+
+    {
+        image:"4.jpg",
+        text:`بعض الذكريات مبتروحش 😂❤️
+
+ممكن نتكلم عنها بعد وقت ونضحك، وممكن نفتكر موقف صغير جدًا ونلاقي نفسنا فاكرين تفاصيله.
+
+وده يمكن لأن في وقت من الأوقات كانت الحاجات دي مهمة فعلًا.
+
+وعشان كدا أنا مقدّر كل حاجة حلوة حصلت بينا.`
+    },
+
+    {
+        image:"5.jpg",
+        text:`ومهما حصل... ❤️
+
+أنا مش شايل من الحكاية غير الحاجات الحلوة.
+
+والحقيقة إن الإنسان لما يبص ورا شوية بيكتشف إن مش كل حاجة لازم يكون ليها نهاية كبيرة أو معنى معين.
+
+أوقات كفاية إنها كانت فترة حلوة، وكان فيها شخص مهم، وذكريات تستاهل تفضل حلوة.`
+    },
+
+    {
+        image:"6.jpg",
+        text:`وأهو وصلنا لآخر صورة 😂❤️
+
+فحبيت أختمها بأهم حاجة...
+
+كل سنة وانتي طيبة يا هنونة 🎂❤️
+
+يارب السنة الجديدة من عمرك تكون أحسن من كل اللي فات.
+
+وتلاقي فيها راحة وفرحة ونجاح وحاجات كتير نفسك فيها.
+
+وربنا يكتبلك الخير في كل خطوة جاية، ويفرح قلبك دايمًا ❤️`
+    }
+
+];
+
+
+/* =========================
+   العناصر
+========================= */
+
+const intro = document.getElementById("intro");
+const password = document.getElementById("password");
+const gallery = document.getElementById("gallery");
+const finalScreen = document.getElementById("final");
+
+const passwordInput =
+    document.getElementById("passwordInput");
+
+const error =
+    document.getElementById("error");
+
+const photo =
+    document.getElementById("photo");
+
+const caption =
+    document.getElementById("caption");
+
+const counter =
+    document.getElementById("counter");
+
+const music =
+    document.getElementById("music");
+
+
+/* =========================
+   فتح الباسورد
+========================= */
+
+function openPassword(){
+
+    intro.classList.add("hide");
+
+    setTimeout(()=>{
+
+        password.classList.remove("hide");
+
+        passwordInput.focus();
+
+    },500);
+
+}
+
+
+/* =========================
+   الباسورد
+========================= */
+
+function checkPassword(){
+
+    const value =
+        passwordInput.value.trim().toLowerCase();
+
+    if(value === "hanona"){
+
+        password.classList.add("hide");
+
+        setTimeout(()=>{
+
+            gallery.classList.remove("hide");
+
+            startMusic();
+
+            showPhoto();
+
+            startSlideshow();
+
+        },600);
+
+    }
+
+    else{
+
+        error.style.display = "block";
+
+        passwordInput.value = "";
+
+        passwordInput.focus();
+
+    }
+
+}
+
+
+/* Enter */
+
+passwordInput.addEventListener("keydown",(e)=>{
+
+    if(e.key === "Enter"){
+
+        checkPassword();
+
+    }
+
+});
+
+
+/* =========================
+   الموسيقى
+========================= */
+
+function startMusic(){
+
+    music.currentTime = 0;
+
+    music.play().catch(()=>{});
+
+}
+
+
+/* لما الأغنية تخلص
+   تبدأ من الأول */
+
+music.addEventListener("ended",()=>{
+
+    music.currentTime = 0;
+
+    music.play().catch(()=>{});
+
+});
+
+
+/* =========================
+   الصور
+========================= */
+
+let currentPhoto = 0;
+
+let timer = null;
+
+
+/* عرض الصورة */
+
+function showPhoto(){
+
+    const item =
+        photos[currentPhoto];
+
+    photo.style.opacity = "0";
+    photo.style.transform = "scale(1.03)";
+
+    caption.classList.remove("show");
+
+    setTimeout(()=>{
+
+        photo.src = item.image;
+
+        caption.innerHTML =
+            item.text.replace(/\n/g,"<br>");
+
+        counter.innerHTML =
+            `${currentPhoto + 1} / ${photos.length}`;
+
+        photo.style.opacity = "1";
+        photo.style.transform = "scale(1)";
+
+        caption.classList.add("show");
+
+    },500);
+
+}
+
+
+/* الصورة التالية */
+
+function nextPhoto(){
+
+    currentPhoto++;
+
+    if(currentPhoto >= photos.length){
+
+        finishGallery();
+
+        return;
+
+    }
+
+    showPhoto();
+
+}
+
+
+/* =========================
+   تشغيل السلايد شو
+========================= */
+
+function startSlideshow(){
+
+    /*
+      كل صورة 10 ثواني
+      عشان الكلام يتقري براحة
+    */
+
+    timer =
+        setInterval(nextPhoto,10000);
+
+}
+
+
+/* =========================
+   النهاية
+========================= */
+
+function finishGallery(){
+
+    if(timer){
+
+        clearInterval(timer);
+
+        timer = null;
+
+    }
+
+    gallery.classList.add("hide");
+
+    setTimeout(()=>{
+
+        finalScreen.classList.remove("hide");
+
+    },800);
+
+}
+
+
+/* =========================
+   القلوب المتحركة
+========================= */
+
+const symbols = [
+    "❤️",
+    "💗",
+    "💕",
+    "✨",
+    "💖",
+    "🌸"
+];
+
+
+function createHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.innerHTML =
+        symbols[Math.floor(Math.random()*symbols.length)];
+
+    heart.style.left =
+        Math.random()*100 + "%";
+
+    heart.style.animationDuration =
+        (5 + Math.random()*5) + "s";
+
+    heart.style.fontSize =
+        (12 + Math.random()*15) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },10000);
+
+}
+
+
+setInterval(createHeart,700);
+
+
+/* =========================
+   منع تحديد الكلام
+========================= */
+
+document.addEventListener(
+    "contextmenu",
+    e => e.preventDefault()
+);
+
+</script>
+
+</body>
+</html>
